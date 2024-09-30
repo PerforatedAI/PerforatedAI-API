@@ -167,3 +167,17 @@ class ResNetPB(nn.Module):
 
     def forward(self, x):
         return self._forward_impl(x)
+    
+'''
+PAIDataParallel is a class which does what is required behind the scenes to allow the pbTracker
+to function properly with tensors being processed on multiple GPUs.  Current implimentation
+is a bit slow, Plan to get rid of this in the future.
+'''
+class PAIDataParallel(nn.DataParallel):
+     def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+    def gather():
+        """
+        Gathers and combines tensors on all GPUs
+        """
+        pass

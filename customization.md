@@ -26,6 +26,9 @@ When you first call convertNetwork Perforated AI will print a list of all parame
     ------------------------------------------------------------------
     Press enter to confirm you do not want them to be refined
 
+Once you have seen this list and are sure you want the ones that are not wrapped to not be wraped you can set it to be ignored in the future with:
+
+    gf.missedOnesConfirmed = True
     
 ### 1.2 - Setting up Processing for Complex Modules
 Finally, if any of the modules you are converting have a custom forward that has more than one tensor as input or output, for example a GRU taking in the previous and current states, you will need to write processing functions.  Please check out pb_models for examples of how to create a processing function for a block.  Once they are written add them with the following block of code. Make sure you do this in order.  They are just added to two arrays which assumes they are added in pairs, When writing these they also must not be local, i.e. within another class as a member function.

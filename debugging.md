@@ -86,6 +86,13 @@ This is the error you will get if you need access an attrubute of a module that 
     #model.yourModule.SOMEVARIABLE
     model.yourModule.mainModule.SOMEVARIABLE
     
+## Initialize Error
+
+    gf.pbTracker.initialize ...
+    AttributeError: 'list' object has no attribute 'initialize'
+
+This means the pbTracker was not initialized.  This generally only happens if zero layers are converted.  Make sure that at least one layer has been converted correctly.
+
 ## Saving Error
 
     RuntimeError: Serialization of parametrized modules is only supported through state_dict()

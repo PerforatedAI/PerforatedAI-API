@@ -8,9 +8,10 @@ device = torch.device("cuda" if use_cuda else "cpu")
 #A global pointer to the tracking class
 pbTracker = []
 
-# List of modules which should be converted
+# List of nn.Module's which should be converted to Dendrite blocks.
+# Anything in this list will receive a duplicate which learns with Perforated Backpropagation
 modulesToConvert = [nn.Conv1d, nn.Conv2d, nn.Conv3d, nn.Linear]
-# Optional to add them by name such as "Conv1d" in this list
+# Same as above but add them by name such as "Conv1d" in this list
 moduleNamesToConvert = []
 '''
 Relacement modules happen before the conversion, so replaced modules will then also be run 
@@ -86,6 +87,9 @@ retainAllPB = False
 # This will test various learning rates after each PB cycle.  Often a lower initial rate is
 # better so the learning doesnt jump away far from the local minimum the Dendrite nodes trained on
 findBestLR = True
+
+# Set to 1 if you want to quit as soon as one dendrite fails
+maxDendriteTries = 5
 
 # This number is to check how many batches to average out the initial correlation score over
 initialCorrelationBatches = 100 #this should be at least 100 and up to 10% of a whole epoch

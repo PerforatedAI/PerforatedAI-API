@@ -4,6 +4,8 @@ The purpose of this repository is to provide a walkthrough for how to add Perfor
 
 If you have not done so yet go to our [website](https://www.perforatedai.com/getstarted) and fill out the form to get your RSA license file which is required to run our software.  Once we have emailed it to you, just put it in the same folder as you run your program from and the software will find it.
 
+Files in the perforatedai folder are to provide information about functions and variables in the actual repository to ease with the process of usage and testing.
+
 ## 1 - Main Script
 ### 1.1 - Imports
 These are all the imports you will need at the top of your main training file.  They will be needed in all of your files that call these functions if some of the below ends up being put into other files.
@@ -70,7 +72,7 @@ The call to convert network should be done directly after the model is initializ
 ### 2.2 Loading
 If you need to load a run after something stopped it in the middle you can call:
     
-    model = PBU.loadSystem(args.saveName, 'system', True)
+    model = PBU.loadSystem(args.saveName, 'latest', True)
 
 If you need to load the best model for any reason you can call:
 
@@ -116,20 +118,6 @@ Training in general can stay exactly as is.  But at the end of your training loo
 
     gf.pbTracker.addExtraScore(trainingScore, 'train')
     
-Additionally, when running PAI the system will automatically switch back and forth between normal learning and Perforated Backpropagation<sup>tm</sup> learning.  This means you don't want to have a set number of epochs.  If you are in Freemium it will give you a value when it is done, but if you have premium your system should just run until you kill it.  So in your training loop either increase your epochs if that doesn't affect learning rate etc. or set the loop to just go forever.  This may also mean you'll either need to move your test function to run every time if it was originally set up to just run once at the end or you will need to catch the kill signal which can be done like so in the training loop:
-
-    killed = False
-    while not killed:
-        try:
-            doing training
-        except KeyboardInterrupt:
-            killed = True
-    
-    # Then load the best model before testing
-    model = PBU.loadSystem(args.saveName, 'best_model', True)
-
-Keep in mind this will still finish the epoch it's in so it doesn't allow for immediate exit.
-
 ### 4.1 - Testing
 If you have a final test that happens at the end where you load the best validation score model beforehand you can do that with the following command
 
@@ -137,7 +125,7 @@ If you have a final test that happens at the end where you load the best validat
     
 If you run testing periodically at the same time when you run validation (this is recommended) You can also call.
 
-    gf.pbTracker.addTestScore(trainingScore, 'test score')
+    gf.pbTracker.addTestScore(testScore, 'Test Accuracy')
     
 The test score should obviously not be used in the same way as the validation score for early stopping or other decisions.  However, by calculating it at each epoch and calling this function the system will automatically keep track of the affiliated test score of the highest validation score during each neuron training iteration.  This will create a CSV file (..bestTestScore.csv) for you that very neatly keeps track of the parameter counts of each cycle as well as what the test score was at the point of the highest validation score for that Dendrite count.  If you do not call this function it will use the validation score when producing this CSV file.
     
