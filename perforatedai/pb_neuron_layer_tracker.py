@@ -1,5 +1,5 @@
 '''
-Functions definitions in this file do not work.
+Function definitions in this file do not work.
 They are only here so you can see the function descriptions and
 confirm they are doing what they say they are doing and 
 for descriptions of inputs and outputs.
@@ -20,8 +20,8 @@ class pb_neuron_layer_tracker():
 
         Args:
             doingPB (bool): Whether or not to actually perform Perforated Backpropagation TM.
-                If this is set to false Dendrites will not be added.  Can be used to test
-                training pipeline without Dendrites by flipping one variable.
+                If this is set to false, Dendrites will not be added.  Can be used to test
+                training parameters without Dendrites by flipping one variable.
             saveName (str): The name to save all output networks, graphs, and csv files.
                 This can be changed as a command line arg to save different runs with different
                 names.
@@ -61,8 +61,8 @@ class pb_neuron_layer_tracker():
 
         Args:
             model (nn.Module): The model being trained
-            optimArgs (dict): Dictionary kargs to intialize the optimizer
-            schedArgs (dict): Dictionary kargs to intialize the scheduler
+            optimArgs (dict): Dictionary kwargs to initialize the optimizer
+            schedArgs (dict): Dictionary kwargs to initialize the scheduler
                 If this is not passed in it defaults to None and a scheduler is not created
         Returns:
             torch.optim.optimizer: initialized optimizer which was created
@@ -119,7 +119,7 @@ class pb_neuron_layer_tracker():
         Adds a validation score to the tracker for graphing and saving.
         Adding a score here will include it in csvs and graphs.
         The validation score will also be used for the bestTestScores values.
-        In addition to to tracking calues the validation score is what determines when to
+        In addition to to tracking values the validation score is what determines when to
             add Dendrites.  That means this function is what handles it.
 
         Args:
@@ -129,10 +129,10 @@ class pb_neuron_layer_tracker():
             saveName (str): The name of the training run.  Should use the same name as in initialize()
         Returns:
             nn.Module: If new Dendrites were created or added to the network this will be a new model
-                object which ahs the same values as the old one, but with the new Dendrites connected
+                object which has the same values as the old one, but with the new Dendrites connected
                 as required.  If the architecture did not change this just returns the original model.
             bool: the first bool returned is True if this validation score is the highest seen so far.
-            bool: The second bool returned is True if the achitecture just changed.  If this value
+            bool: The second bool returned is True if the architecture just changed.  If this value
                 is True a new optimizer and scheduler must be created to point to the new model.
             bool: the final bool is True if the pbTracker determines training to be complete.  This
                 will only return True when a architecture has a set of trained Dendrites connected to
@@ -141,6 +141,8 @@ class pb_neuron_layer_tracker():
                 will still be False and it will try again gf.maxDendriteTries times.  If that number
                 of tries has been attempted then this will be True.  When it is True that is the 
                 tracker's signal that training is complete and the training cycle should be exited.
+                This additionally will be true after the first set of neurons are trained if you
+                have the freemium version of the software.
         """
         pass
     

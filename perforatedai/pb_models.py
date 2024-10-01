@@ -12,14 +12,14 @@ from perforatedai import globalsFile as gf
 
 
 '''
-LSTMCellProcessor defined here to use as example of how to setup processing functions.
+LSTMCellProcessor is defined here to use as an example of how to set up processing functions.
 Even though this is one class, what really happens is that the main module has one instance, 
-which will use post_n1 and post_n2 and then each new Dendrite node gets a unique sepearte 
-individual isntance to use pre_d and post_d
+which will use post_n1 and post_n2 and then each new Dendrite node gets a unique separate 
+individual instance to use pre_d and post_d
 '''
 class LSTMCellProcessor():
     '''
-    The neuron does eventually need to return h_t and c__t, but h_t gets modified py the Dendrite
+    The neuron does eventually need to return h_t and c_t, but h_t gets modified py the Dendrite
     nodes first so it needs to be extracted in post_n1, and then gets added back in post_n2
     post_n1 is called right after the main module is called before any Dendrite processing.  
     It should return only the part of the output that you want to do Dendrite learning for.  
@@ -39,10 +39,10 @@ class LSTMCellProcessor():
         h_t = args[0]
         return h_t, self.c_t_n
     '''
-    #input to pre_d will be (input, (h_t, c_t))
+    Input to pre_d will be (input, (h_t, c_t))
     pre_d does filtering to make sure Dendrite is getting the right input.  This typically
     would be done in the training loop.  For example, with an LSTM this is where you check
-    if its the first itration or not and either pass the Dendrite the regular args to the
+    if it's the first iteration or not and either pass the Dendrite the regular args to the
     neuron or pass the Dendrite its own internal state.
     '''
     def pre_d(self, *args, **kwargs):
@@ -54,7 +54,7 @@ class LSTMCellProcessor():
         else:
             return (args[0], (self.h_t_d, self.c_t_d)), kwargs
     '''
-    #For post processsing post_d just getting passed the output, which is (h_t,c_t). Then 
+    For post processing post_d just gets passed the output, which is (h_t,c_t). Then 
     it wants to only pass along h_t as the output for the function to be passed to the parent
     while retaining both h_t and c_t.  post_d saves what needs to be saved for next time and
     passes forward only the Dendrite part that will be added to the parent
@@ -66,7 +66,8 @@ class LSTMCellProcessor():
         self.c_t_d = c_t
         return h_t
 
-# Similar to the above but for GRU  visual example of this one is shown in the README
+# Similar to the above but for GRU. 
+# A visual example of this one is shown in customization.md
 class GRUProcessor():
     def post_n1(self, *args, **kawrgs):
         output = args[0][0]
@@ -126,7 +127,7 @@ class PBSequential(nn.Sequential):
 '''
 This is an example of a custom module that may need to be done in addition to adding
 blocks to the modulesToConvert.  Specifically it shows adding batch norm into a PBSequential block
-PBSequential is used because normalizaiton layers cause problems for correlation learning.
+PBSequential is used because normalization layers cause problems for correlation learning.
 '''
 
 class ResNetPB(nn.Module):
@@ -170,7 +171,7 @@ class ResNetPB(nn.Module):
     
 '''
 PAIDataParallel is a class which does what is required behind the scenes to allow the pbTracker
-to function properly with tensors being processed on multiple GPUs.  Current implimentation
+to function properly with tensors being processed on multiple GPUs.  Current implementation
 is a bit slow, Plan to get rid of this in the future.
 '''
 class PAIDataParallel(nn.DataParallel):

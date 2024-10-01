@@ -14,10 +14,10 @@ modulesToConvert = [nn.Conv1d, nn.Conv2d, nn.Conv3d, nn.Linear]
 # Same as above but add them by name such as "Conv1d" in this list
 moduleNamesToConvert = []
 '''
-Relacement modules happen before the conversion, so replaced modules will then also be run 
-through the converstion steps. This can be used if you have a pretrained model but need to
+Replacement modules happen before the conversion, so replaced modules will then also be run 
+through the conversion steps. This can be used if you have a pretrained model but need to
 change the way some of the modules are set up.  Fill these in with a pointer to the module 
-and the replacement class which takes the intial module as a parameter.  See cusomization
+and the replacement class which takes the initial module as a parameter.  See customization
 section 4 for more information.
 '''
 modulesToReplace = []
@@ -32,12 +32,12 @@ moduleNamesWithProcessing = []
 moduleByNameProcessingClasses = []
 
 '''
-inputDimentions needs to be set every time. It is set to what format of tensors you are
+inputDimensions needs to be set every time. It is set to what format of tensors you are
 expecting.  Node index should be set to 0, other indexes should be set to -1.  For
-example, if your format is [batchsize, nodes, x, y] inputDimentions is [-1,0,-1-1].
+example, if your format is [batchsize, nodes, x, y] inputDimensions is [-1,0,-1-1].
 if your format is, [batchsize, timestep, nodes] indexesBeforeNode is [-1,-1,0]
 '''
-inputDimentions = []
+inputDimensions = []
 
 #Constants
 #Percentage Improvement increase needed to call a new best validation score
@@ -61,9 +61,9 @@ nEpochsToSwitch = 10  # Number of normal epochs to cause a switch
 pEpochsToSwitch = 10  # Number of Perforated Backpropagation epochs to cause a switch
 capAtN = False #Makes sure PB rounds last max as long as normal rounds
 # Number of epochs to average validation scores over
-# Set to 1 if you dont want to use averaging
+# Set to 1 if you don't want to use averaging
 historyLookback = 5
-# Intitially after switches number of epochs to wait to make sure you have a fair
+# Initially after switches number of epochs to wait to make sure you have a fair
 # initialization score before tracking any new maxes and and allowing switches to happen
 # Set to 1 if you do not want to do averaging.
 initialHistoryAfterSwitches = 3
@@ -79,16 +79,17 @@ firstFixedSwitchNum = 249
 #generate the same graphs and csvs
 doingNoSwitch = 3
 
-# Typically PB nodes will be deleted if the normal learning doesnt improve after adding them.
-# This will retain them anyway, generaly only used when testing your GPU capacity and running
+# Typically PB nodes will be deleted if the normal learning doesn't improve after adding them.
+# This will retain them anyway, generally only used when testing your GPU capacity and running
 # A bunch of PB cycles in a row
 retainAllPB = False
 
 # This will test various learning rates after each PB cycle.  Often a lower initial rate is
-# better so the learning doesnt jump away far from the local minimum the Dendrite nodes trained on
+# better so the learning doesn't jump away far from the local minimum the Dendrite nodes trained on
 findBestLR = True
 
-# Set to 1 if you want to quit as soon as one dendrite fails
+# Set to 1 if you want to quit as soon as one Dendrite fails
+# Higher numbers will try a new set of randomly initialized Dendrites
 maxDendriteTries = 5
 
 # This number is to check how many batches to average out the initial correlation score over
@@ -100,13 +101,13 @@ paramValsSetting = paramValsByUpdateEpoch
 '''
 A custom PAI module which can be used to group layers into a single block
 
-This takes in an array of layers. Ffor example:
+This takes in an array of layers. For example:
 
     gf.PBSequential([nn.Linear(2 * hidden_dim, seqWidth),
             nn.LayerNorm(seqWidth)])
     
     This should be used for all normalization layers.
-    You will get warnings if normalizaiton layers are unwrapped.
+    You will get warnings if normalization layers are unwrapped.
     
 '''
 class PBSequential(nn.Sequential):

@@ -123,11 +123,11 @@ If you have a final test that happens at the end where you load the best validat
 
     model = PBU.loadSystem(saveName, 'best_model', True)
     
-If you run testing periodically at the same time when you run validation (this is recommended) You can also call.
+If you run testing periodically at the same time when you run validation (this is recommended) You can also call:
 
     gf.pbTracker.addTestScore(testScore, 'Test Accuracy')
     
-The test score should obviously not be used in the same way as the validation score for early stopping or other decisions.  However, by calculating it at each epoch and calling this function the system will automatically keep track of the affiliated test score of the highest validation score during each neuron training iteration.  This will create a CSV file (..bestTestScore.csv) for you that very neatly keeps track of the parameter counts of each cycle as well as what the test score was at the point of the highest validation score for that Dendrite count.  If you do not call this function it will use the validation score when producing this CSV file.
+The test score should obviously not be used in the same way as the validation score for early stopping or other decisions.  However, by calculating it at each epoch and calling this function the system will automatically keep track of the affiliated test score of the highest validation score during each neuron training iteration.  This will create a CSV file (..bestTestScore.csv) for you that very neatly keeps track of the parameter counts of each cycle as well as what the test score was at the point of the highest validation score for that Dendrite count.  If you do not call this function it will use the validation score when producing this CSV file.  This function should be called before addValidationScore.
     
     
 ## 5 - Validation

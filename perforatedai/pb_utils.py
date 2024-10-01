@@ -1,5 +1,5 @@
 '''
-Functions definitions in this file do not work.
+Function definitions in this file do not work.
 They are only here so you can see the function descriptions and
 confirm they are doing what they say they are doing and 
 for descriptions of inputs and outputs.
@@ -16,7 +16,7 @@ def convertNetwork(model: nn.Module) -> nn.Module:
             to have the ability to add Dendrite Nodes
 
     Returns:
-        nn.Module: A new network that has the ability to have dendrites added
+        nn.Module: A new network that has the ability to have Dendrites added
     """
     pass
 
@@ -25,7 +25,7 @@ def convertNetwork(model: nn.Module) -> nn.Module:
 
 def loadSystem(saveName: str, saveTag: str, model: nn.Module, resetLayerVector: bool) -> nn.Module:
     """
-    Lods a network and resets the global pbTracker to point to the right places and loads
+    Loads a network and resets the global pbTracker to point to the right places and loads
     the values from the tracker when this network was saved
 
     Args:
@@ -38,10 +38,10 @@ def loadSystem(saveName: str, saveTag: str, model: nn.Module, resetLayerVector: 
                 'beforeSwitch_X': The model right before switching modes.  Even numbers will be in normal   
                     training mode doing optimization, odd numbers will be in Dendrite training mode optimizing the dendrite inputs.  This could be used if you want to load a final set of values to determine what things looked like when a switch was triggered.
                 'switch_X': The model right after switching modes.  Same as above for even and odds.
-                    This could be used if you want to try a cycle again from the beggining with
+                    This could be used if you want to try a cycle again from the beginning with
                     a new set of parameters.
-                'PBCount_X_startSteps_Y' These are termporary models that are saved while picking
-                    an optimial learning rate to start training neurons again after adding Dendrites.
+                'PBCount_X_startSteps_Y' These are temporary models that are saved while picking
+                    an optimal learning rate to start training neurons again after adding Dendrites.
                     You will likely not ever need to load these.
         resetLayerVector (bool): A flag about whether or not to point the pbTracker to this new
             modules.  Should always be set to True for user purposes.
