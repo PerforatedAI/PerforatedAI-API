@@ -55,7 +55,7 @@ class pb_neuron_layer_tracker():
                         optimArgs: dict,
                         schedArgs: dict) ->
                         tuple ( torch.optim.optimizer,
-                                torch.optim.scheduler)
+                                torch.optim.scheduler):
         """
         Initializes the optimizer and scheduler using the parameters from the model.
 
@@ -75,7 +75,7 @@ class pb_neuron_layer_tracker():
         """
         pass
     
-    def setOptimizer(optimizer: torch.optim.optimizer)
+    def setOptimizer(optimizer: torch.optim.optimizer):
         """
         If you want to handle the optimizer yourself this just gives the tracker a pointer to it
         and it will not be modified.
@@ -85,7 +85,7 @@ class pb_neuron_layer_tracker():
         """
         pass
     
-    def addExtraScore(score: float, scoreName: str)
+    def addExtraScore(score: float, scoreName: str):
         """
         Adds a score to the tracker for graphing and saving in addition to test and validation.
         Adding a score here will include it in csvs and graphs.
@@ -96,7 +96,7 @@ class pb_neuron_layer_tracker():
         """
         pass
     
-    def addTestScore(score: float, scoreName: str)
+    def addTestScore(score: float, scoreName: str):
         """
         Adds a test score to the tracker for graphing and saving.
         Adding a score here will include it in csvs and graphs.
@@ -114,7 +114,7 @@ class pb_neuron_layer_tracker():
                             tuple(nn.Module,
                                   bool,
                                   bool,
-                                  bool)
+                                  bool):
         """
         Adds a validation score to the tracker for graphing and saving.
         Adding a score here will include it in csvs and graphs.
